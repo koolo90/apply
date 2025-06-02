@@ -49,6 +49,54 @@ git push -u origin main
 2. Confirm that all your files have been uploaded correctly
 3. Your README.md should be displayed on the repository's main page
 
+## 6. Using Semantic Commits
+
+Semantic commits are a convention for creating meaningful commit messages that clearly communicate the purpose of a change. Following this convention makes your commit history more readable and helps automate versioning and changelog generation.
+
+### Format
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Types
+
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, missing semi-colons, etc.; no code change)
+- `refactor`: Code refactoring (neither fixes a bug nor adds a feature)
+- `perf`: Performance improvements
+- `test`: Adding or correcting tests
+- `chore`: Changes to the build process, auxiliary tools, libraries, etc.
+
+### Examples
+
+```bash
+# Adding a new feature
+git commit -m "feat(auth): add OAuth2 authentication"
+
+# Fixing a bug
+git commit -m "fix(api): resolve null pointer in user controller"
+
+# Updating documentation
+git commit -m "docs: update installation instructions"
+
+# Refactoring code
+git commit -m "refactor(core): simplify data processing logic"
+```
+
+### Benefits
+
+- **Clear Communication**: Team members can easily understand the purpose of each commit
+- **Automated Versioning**: Tools like semantic-release can automatically determine version numbers
+- **Better Changelogs**: Generate meaningful changelogs automatically
+- **Easier Maintenance**: Makes it simpler to navigate and understand the project history
+
 ## Additional Tips
 
 - Consider setting up branch protection rules for your main branch

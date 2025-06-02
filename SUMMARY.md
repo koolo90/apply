@@ -16,6 +16,7 @@
    - Committing your changes
    - Pushing your code to GitHub
    - Verifying your repository
+   - Using semantic commits for clear and meaningful commit messages
 
 4. **Files Added to Git**: The README.md and GITHUB_SETUP.md files have been added to git staging.
 
