@@ -1,10 +1,9 @@
 {
-  "services": {
-    "another_example": {
-      "image": "tomcat:latest",
-      "ports": [
-        "8080"
-      ]
-    }
+  "encrypted_properties": {
+    "POSTGRES_USER": "YWRtaW4=",
+    "SPRING_DATASOURCE_USERNAME": "YWRtaW4=",
+    "POSTGRES_PASSWORD": "YWRtaW4=",
+    "SPRING_DATASOURCE_PASSWORD": "YWRtaW4=",
+    "SPRING_DATASOURCE_URL": "amRiYzpwb3N0Z3Jlc3FsOi8vYXBwbHlfZGF0YWJhc2U6NTQzMi9hcHBseWRi"
   }
 }
