@@ -8,9 +8,19 @@ services:
     ports:
       - 4200:4200
   apply_backend:
-    image: tomcat:latest
+    build:
+      context: ../../..
+      dockerfile: ./infra/src/build/Dockerfile.core
+      tags:
+        - apply-backend-core
     ports:
       - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://apply_database:5432/applydb
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    depends_on:
+      - apply_database
   apply_database:
     image: postgres:latest
     ports:
