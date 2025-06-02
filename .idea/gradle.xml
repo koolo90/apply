@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/apply-mobile" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/database" />
             <option value="$PROJECT_DIR$/infra" />
             <option value="$PROJECT_DIR$/sandbox" />
             <option value="$PROJECT_DIR$/web-client" />

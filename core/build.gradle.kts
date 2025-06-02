@@ -22,6 +22,7 @@ version = "0.0.1-SNAPSHOT" //https://semver.org/
 
 dependencies {
     /* Here are our Spring Boot project’s dependencies: */
+    implementation(project(":database"))
     implementation("org.springframework.boot:spring-boot-starter-web:3.5.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.0")
     implementation("org.springframework.boot:spring-boot-starter-security:3.5.0")
