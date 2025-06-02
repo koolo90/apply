@@ -1,0 +1,26 @@
+services:
+  apply_web_client:
+    build:
+      context: ../../..
+      dockerfile: ./infra/src/build/Dockerfile
+      tags:
+        - apply-web-app
+    ports:
+      - 4200:4200
+  apply_backend:
+    image: tomcat:latest
+    ports:
+      - 8080:8080
+  apply_database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=applydb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

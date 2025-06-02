@@ -1,0 +1,10 @@
+{
+  "services": {
+    "another_example": {
+      "image": "tomcat:latest",
+      "ports": [
+        "8080"
+      ]
+    }
+  }
+}

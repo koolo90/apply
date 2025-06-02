@@ -1,0 +1,58 @@
+<div class="card my-5">
+  <div class="card-header">
+    <h2>{{ isEditMode ? 'Edit User' : 'Create User' }}</h2>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               [(ngModel)]="user.name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Enter name"
+               required
+               #name="ngModel">
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email"
+               [(ngModel)]="user.email"
+               class="form-control"
+               id="email"
+               name="email"
+               placeholder="Enter email"
+               required
+               email
+               #email="ngModel">
+        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+          Valid email is required
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="isEditMode">
+        <label for="id">ID</label>
+        <input type="text"
+               [(ngModel)]="user.id"
+               class="form-control"
+               id="id"
+               name="id"
+               placeholder="ID"
+               readonly
+               #id="ngModel">
+      </div>
+
+      <button type="submit"
+              [disabled]="!userForm.form.valid"
+              class="btn btn-primary">
+        {{ isEditMode ? 'Update' : 'Create' }}
+      </button>
+      <a routerLink="/users" class="btn btn-secondary ml-2">Cancel</a>
+    </form>
+  </div>
+</div>

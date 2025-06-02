@@ -1,0 +1,12 @@
+/* Additional styling for the user list component */
+.card-header {
+  background-color: #f8f9fa;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.alert {
+  margin-top: 1rem;
+}
