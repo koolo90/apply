@@ -2,7 +2,7 @@ services:
   apply_web_client:
     build:
       context: ../../..
-      dockerfile: ./infra/src/build/Dockerfile
+      dockerfile: ../build/web.Dockerfile
       tags:
         - apply-web-app
     ports:
@@ -10,7 +10,7 @@ services:
   apply_backend:
     build:
       context: ../../..
-      dockerfile: ./infra/src/build/Dockerfile.core
+      dockerfile: ../build/core.Dockerfile
       tags:
         - apply-backend-core
     ports:
