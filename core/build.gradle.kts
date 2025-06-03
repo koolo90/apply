@@ -26,7 +26,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:3.5.0")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.0")
     implementation("org.springframework.boot:spring-boot-starter-security:3.5.0")
-    implementation("org.flywaydb:flyway-core")
+    // Removed Flyway dependency as it's not needed in core project
+    // implementation("org.flywaydb:flyway-core")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     compileOnly("org.projectlombok:lombok:1.18.38")
 
     // Java EE API for EAR deployment
