@@ -1,16 +1,16 @@
 services:
   apply_web_client:
     build:
-      context: ../../..
-      dockerfile: ../build/web.Dockerfile
+      context: ../../../
+      dockerfile: infra/src/build/web.Dockerfile
       tags:
         - apply-web-app
     ports:
       - 4200:80
   apply_backend:
     build:
-      context: ../../..
-      dockerfile: ../build/core.Dockerfile
+      context: ../../../
+      dockerfile: infra/src/build/core.Dockerfile
       tags:
         - apply-backend-core
     ports:
