@@ -97,6 +97,93 @@ git commit -m "refactor(core): simplify data processing logic"
 - **Better Changelogs**: Generate meaningful changelogs automatically
 - **Easier Maintenance**: Makes it simpler to navigate and understand the project history
 
+## 7. GitHub Flow Collaboration Model
+
+We follow the GitHub Flow branching model for collaboration. This is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly.
+
+### Core Principles
+
+1. The `main` branch is always deployable and contains production-ready code
+2. All new work is done in feature branches created from the `main` branch
+3. Pull requests are used for code review before merging back to `main`
+4. Changes are deployed immediately after merging to `main`
+
+### Workflow Steps
+
+#### 1. Create a Feature Branch
+
+Always create a new branch for your work, branching off from `main`:
+
+```bash
+# Ensure you're on main and it's up to date
+git checkout main
+git pull origin main
+
+# Create a new feature branch with a descriptive name
+git checkout -b feature/descriptive-feature-name
+```
+
+Use a descriptive name that reflects what you're working on. Prefixes like `feature/`, `fix/`, `docs/`, etc., help categorize the branch.
+
+#### 2. Make Changes and Commit
+
+Work on your feature branch, making regular commits using the semantic commit format:
+
+```bash
+# Add your changes
+git add .
+
+# Commit with semantic message
+git commit -m "feat(component): add new functionality"
+```
+
+#### 3. Push to GitHub
+
+Push your branch to the remote repository:
+
+```bash
+git push -u origin feature/descriptive-feature-name
+```
+
+#### 4. Create a Pull Request
+
+1. Go to the repository on GitHub
+2. Click "Compare & pull request" for your recently pushed branch
+3. Fill in the PR template with:
+   - Clear description of changes
+   - Reference to any related issues
+   - Screenshots or other supporting materials if applicable
+4. Click "Create pull request"
+
+#### 5. Code Review Process
+
+- At least one team member should review each PR
+- Reviewers should check for:
+  - Code quality and correctness
+  - Test coverage
+  - Documentation
+  - Adherence to project standards
+- Address all feedback through additional commits to the same branch
+
+#### 6. Merge and Deploy
+
+Once approved:
+1. Merge the PR into `main` (prefer "Squash and merge" for a cleaner history)
+2. Delete the feature branch after successful merge
+3. The changes will be automatically deployed through our CI/CD pipeline
+
+#### 7. Start Your Next Feature
+
+Begin the process again by creating a new branch from the updated `main`.
+
+### Best Practices
+
+- Keep branches short-lived (days, not weeks)
+- Make regular, small commits with clear messages
+- Update your feature branch regularly with changes from `main` to avoid conflicts
+- Write and update tests for your changes
+- Document new features or API changes
+
 ## Additional Tips
 
 - Consider setting up branch protection rules for your main branch
