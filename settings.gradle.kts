@@ -17,7 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "apply-2"
 include("infra")
 include("sandbox")
-include("core")
 include("web-client")
-include("apply-mobile")
-include("database")
+include("apply-spring-core")
+include("apply-jakarta-core")
