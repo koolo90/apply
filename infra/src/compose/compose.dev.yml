@@ -9,18 +9,11 @@ services:
       - 4200:80
   apply_backend:
     build:
-      context: ../../..
-      dockerfile: ../build/core.Dockerfile
-      tags:
-        - apply-backend-core
+      context: ..
+      dockerfile: ./build/core.Dockerfile
     ports:
       - 8080:8080
-    environment:
-      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-    depends_on:
-      - apply_database
+      - 4848:4848
   apply_database:
     image: postgres:latest
     ports:
