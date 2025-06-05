@@ -108,6 +108,32 @@ We follow the GitHub Flow branching model for collaboration. This is a lightweig
 3. Pull requests are used for code review before merging back to `main`
 4. Changes are deployed immediately after merging to `main`
 
+### Visual Workflow
+
+```mermaid
+flowchart TD
+    A[Main Branch\nAlways Deployable] --> |Branch| B
+    Z[Identify Task or Issue] --> B
+    B[Create Feature Branch] --> C[Make Changes]
+    C --> |Commit| C
+    C --> D[Push & Create\nPull Request]
+    D --> E[Code Review]
+    E --> |Request Changes| C
+    E --> |Approve| F[Merge to Main]
+    F --> G[Deploy Changes]
+    F --> |Delete Branch| H[Start Next Feature]
+    H --> B
+    G --> A
+
+    classDef mainNode fill:#f9f,stroke:#333,stroke-width:2px
+    classDef processNode fill:#ddf,stroke:#333,stroke-width:1px
+    classDef deployNode fill:#bfb,stroke:#333,stroke-width:2px
+
+    class A,F mainNode
+    class B,C,D,E,H processNode
+    class G deployNode
+```
+
 ### Workflow Steps
 
 #### 1. Create a Feature Branch
