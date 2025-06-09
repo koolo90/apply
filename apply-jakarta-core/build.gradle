@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id "war"
+}
+
+group = "com.brocode"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    implementation(platform("jakarta.platform:jakarta.jakartaee-bom:10.0.0"))
+    implementation("jakarta.platform:jakarta.jakartaee-api:10.0.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+war {
+    archiveFileName = "apply-jakarta.war"
+}
+
+tasks.register('redeploy', Exec) {
+    group = 'deployment'
+    dependsOn war
+
+    def warTaskByName = tasks.war
+    def archiveFileName = warTaskByName.archiveFileName.get()
+    def deployPath = "/" + warTaskByName.archiveFileName.get().replace(".war", "")
+    def buildDir = layout.buildDirectory.get()
+    def warFile = file("$buildDir/libs/${archiveFileName}")
+    def port = 8080
+    def host = "127.0.0.1"
+    def user = "scriptmanager"
+    def pass = "s3cret"
+    def url = "http://${host}:${port}/manager/text/deploy?path=${deployPath}&update=true"
+    def authentification = "${user}:${pass}"
+
+    println "Execution of command: curl -u ${authentification} -T ${warFile} ${url}"
+
+    commandLine 'curl', '-u', authentification, '-T', warFile, url
+}
