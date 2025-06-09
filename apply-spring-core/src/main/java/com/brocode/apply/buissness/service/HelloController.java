@@ -1,7 +1,7 @@
-package com.brocode.apply;
+package com.brocode.apply.buissness.service;
 
-import com.brocode.apply.buissness.model.Applier;
-import com.brocode.apply.repositories.ApplierRepository;
+import com.brocode.apply.buissness.model.Candidate;
+import com.brocode.apply.repositories.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,37 +20,36 @@ import org.springframework.web.bind.annotation.*;
  * reference to the annotation type __ (double underscore) which doesn’t actually exist; this makes javac 7 delay
  * aborting the compilation process due to an error because it is possible an annotation processor will later create
  * the __ type.</em>
- *
- * And others aren't documented.
+ * <p>And others aren't documented.</p>
  */
 @RestController
 @RequestMapping("/hello")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HelloController {
-    private final ApplierRepository applierRepository;
+    private final CandidateRepository applierRepository;
 
     @GetMapping(value = "/global", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Applier hello() {
+    public Candidate hello() {
         return applierRepository.findByUsername("World");
     }
 
     @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Applier targetedHello(@PathVariable("username") String username) {
+    public Candidate targetedHello(@PathVariable("username") String username) {
         return applierRepository.findByUsername(username);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Applier> helloAll() {
+    public Iterable<Candidate> helloAll() {
         return applierRepository.findAll();
     }
 
     @PostMapping(value = "/hello/iam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Applier introduce(@RequestBody Applier applier) {
+    public Candidate introduce(@RequestBody Candidate applier) {
         return applierRepository.save(applier);
     }
 
     @PutMapping(value = "/hello/fix", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Applier update(@RequestBody Applier applier) {
+    public Candidate update(@RequestBody Candidate applier) {
         String username = applier.getUsername();
         applierRepository.findByUsername(username);
         return applierRepository.save(applier);
