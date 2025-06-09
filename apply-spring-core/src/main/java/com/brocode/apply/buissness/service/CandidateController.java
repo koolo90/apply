@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/candidate")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class CandidateConttoller {
+public class CandidateController {
     @NonNull CandidateRepository candidateRepository;
     public Candidate getByEmail(String emailAddress) {
         return candidateRepository.findByEmail(emailAddress);

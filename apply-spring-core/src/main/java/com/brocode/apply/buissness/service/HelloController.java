@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.*;
  * reference to the annotation type __ (double underscore) which doesn’t actually exist; this makes javac 7 delay
  * aborting the compilation process due to an error because it is possible an annotation processor will later create
  * the __ type.</em>
- *
- * And others aren't documented.
+ * <p>And others aren't documented.</p>
  */
 @RestController
 @RequestMapping("/hello")
