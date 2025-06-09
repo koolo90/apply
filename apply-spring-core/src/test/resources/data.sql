@@ -1,0 +1,1 @@
+insert into apply.applier(id, username) values (1, 'World')
