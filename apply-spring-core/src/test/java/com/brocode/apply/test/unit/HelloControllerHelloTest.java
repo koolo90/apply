@@ -1,8 +1,8 @@
-package com.brocode.apply.test;
+package com.brocode.apply.test.unit;
 
 import com.brocode.apply.ApplyApplication;
-import com.brocode.apply.HelloController;
-import com.brocode.apply.buissness.model.Applier;
+import com.brocode.apply.buissness.service.HelloController;
+import com.brocode.apply.buissness.model.Candidate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,11 @@ import org.springframework.util.Assert;
 @EnableConfigurationProperties
 @TestPropertySource("classpath:application-test.properties")
 class HelloControllerHelloTest {
-    @Autowired
-    HelloController helloController;
+    @Autowired HelloController helloController;
 
     @Test
     void greetTheWorld() {
-        Applier hello = helloController.hello();
+        Candidate hello = helloController.hello();
         Assert.hasText(hello.getUsername(), "World");
     }
 }

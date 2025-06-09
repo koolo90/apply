@@ -47,8 +47,12 @@ The project is organized into multiple modules:
 
 ## Development
 
-This project uses Gradle for build automation. You can use the following commands:
+This project uses Gradle for build automation. You can use the following: commands:
 
 - `./gradlew build`: Build the project
 - `./gradlew test`: Run tests
 - `./gradlew bootRun`: Run the application
+
+Example of git expirience:
+Octopus merge: https://github.com/koolo90/apply/commit/c983871ebf7ab43112a426bd80a07d86a75ae33a
+   

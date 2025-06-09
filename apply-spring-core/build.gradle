@@ -39,6 +39,10 @@ dependencies {
   testImplementation("org.assertj:assertj-core:4.0.0-M1")
   testImplementation("com.h2database:h2:2.3.232")
   testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+  //basing on: https://www.baeldung.com/cucumber-spring-integration
+  implementation 'io.cucumber:cucumber-jvm:7.23.0'   // https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm
+  testImplementation 'io.cucumber:cucumber-junit:7.23.0' // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+  implementation 'io.cucumber:cucumber-spring:7.23.0' // https://mvnrepository.com/artifact/io.cucumber/cucumber-spring
 
   //implementation("org.springframework.kafka:spring-kafka")
   //implementation("org.springframework.boot:spring-boot-starter-security")
