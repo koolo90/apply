@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CandidateController {
     @NonNull CandidateRepository candidateRepository;
     public Candidate getByEmail(String emailAddress) {
-        return candidateRepository.findByEmail(emailAddress);
+        return candidateRepository.findByEmail(emailAddress).orElseThrow(() -> new ResourceNotFoundException(this.getClass(), Candidate.class, "Email: \"{0}\" not found!", emailAddress));
     }
 }

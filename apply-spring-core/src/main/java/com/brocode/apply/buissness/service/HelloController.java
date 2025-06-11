@@ -30,12 +30,20 @@ public class HelloController {
 
     @GetMapping(value = "/global", produces = MediaType.APPLICATION_JSON_VALUE)
     public Candidate hello() {
-        return applierRepository.findByUsername("World");
+        return applierRepository.findByUsername("World")
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        this.getClass(),
+                        Candidate.class,
+                        "Username: World"));
     }
 
     @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Candidate targetedHello(@PathVariable("username") String username) {
-        return applierRepository.findByUsername(username);
+        return applierRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        this.getClass(),
+                        Candidate.class,
+                        "Username: \"{0}\" not found!", username));
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
