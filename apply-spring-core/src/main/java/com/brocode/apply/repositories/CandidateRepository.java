@@ -2,9 +2,12 @@ package com.brocode.apply.repositories;
 
 import com.brocode.apply.buissness.model.Candidate;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CandidateRepository extends CrudRepository<Candidate, String> {
-    Candidate findByUsername(String world);
+import java.util.Optional;
 
-    Candidate findByEmail(String emailAddress);
+public interface CandidateRepository extends CrudRepository<Candidate, String>, PagingAndSortingRepository<Candidate, String> {
+    Optional<Candidate> findByUsername(String username);
+
+    Optional<Candidate> findByEmail(String emailAddress);
 }

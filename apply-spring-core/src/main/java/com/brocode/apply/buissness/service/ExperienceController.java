@@ -28,7 +28,7 @@ public class ExperienceController {
     public Position setRoleDescription(@NonNull Long id, String description) {
         Optional<Position> byId = experienceRepository.findById(id);
         if (byId.isEmpty()) {
-            throw new ResourceNotFoundException(this.getClass(), Position.class, id);
+            return null;
         }
         Position position = byId.get();
         position.setDescription(description);
