@@ -97,6 +97,14 @@ git commit -m "refactor(core): simplify data processing logic"
 - **Better Changelogs**: Generate meaningful changelogs automatically
 - **Easier Maintenance**: Makes it simpler to navigate and understand the project history
 
+### Branch namin
+
+https://gist.github.com/seunggabi/87f8c722d35cd07deb3f649d45a31082
+
+###
+
+https://github.com/marketplace/actions/semantic-pull-request
+
 ## 7. GitHub Flow Collaboration Model
 
 We follow the GitHub Flow branching model for collaboration. This is a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly.

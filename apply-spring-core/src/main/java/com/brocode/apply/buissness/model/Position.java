@@ -18,8 +18,7 @@ public class Position {
     private Long id;
 
     @NonNull
-    @Column(nullable = false)
-    @Temporal(TemporalType.DATE) //https://www.baeldung.com/spring-data-jpa-query-by-date
+    @Column(nullable = false) @Temporal(TemporalType.DATE) //https://www.baeldung.com/spring-data-jpa-query-by-date
     private LocalDate start;
 
     @NonNull

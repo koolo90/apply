@@ -5,7 +5,10 @@ import com.brocode.apply.repositories.CandidateRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * <h1>Based on: <a href="https://www.baeldung.com/spring-injection-lombok">Constructor Injection in Spring with Lombok</a></a></h1>
@@ -29,21 +32,13 @@ public class HelloController {
     private final CandidateRepository applierRepository;
 
     @GetMapping(value = "/global", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Candidate hello() {
-        return applierRepository.findByUsername("World")
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        this.getClass(),
-                        Candidate.class,
-                        "Username: World"));
+    public ResponseEntity<Candidate> hello() {
+        return ResponseEntity.of(applierRepository.findByUsername("World"));
     }
 
     @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Candidate targetedHello(@PathVariable("username") String username) {
-        return applierRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        this.getClass(),
-                        Candidate.class,
-                        "Username: \"{0}\" not found!", username));
+    public ResponseEntity<Candidate> targetedHello(@PathVariable("username") String username) {
+        return ResponseEntity.of(applierRepository.findByUsername(username));
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,15 +46,17 @@ public class HelloController {
         return applierRepository.findAll();
     }
 
-    @PostMapping(value = "/hello/iam", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Candidate introduce(@RequestBody Candidate applier) {
-        return applierRepository.save(applier);
+    @PostMapping(value = "/iam", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Candidate> introduce(@RequestBody Candidate candidate) {
+        return ResponseEntity.of(Optional.of(applierRepository.save(candidate)));
     }
 
-    @PutMapping(value = "/hello/fix", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Candidate update(@RequestBody Candidate applier) {
-        String username = applier.getUsername();
-        applierRepository.findByUsername(username);
-        return applierRepository.save(applier);
+    @PutMapping(value = "/fix/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Candidate> update(@PathVariable("username") String username, @RequestBody Candidate candidate) {
+        return applierRepository.findByUsername(username).map(c -> {
+            c.setUsername(candidate.getUsername());
+            c.setEmail(candidate.getEmail());
+            return ResponseEntity.of(Optional.of(applierRepository.save(c)));
+        }).orElseGet(() ->  ResponseEntity.notFound().build());
     }
 }
