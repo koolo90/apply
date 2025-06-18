@@ -1,0 +1,38 @@
+plugins {
+  id 'war'
+  id "com.avast.gradle.docker-compose" version "0.17.12"
+}
+
+dockerCompose {
+
+}
+
+tasks.register('ngBuild', Exec) {
+  commandLine 'cmd', '/c', 'ng', 'build'
+}
+
+war {
+  dependsOn 'ngBuild'
+  from './dist/apply-web/browser'
+  archiveFileName = 'apply-web.war'
+}
+
+tasks.register('redeploy', Exec) {
+  group = 'deployment'
+  dependsOn war
+
+  def warTaskByName = tasks.war
+  def warArchiveFileName = warTaskByName.archiveFileName.get()
+  def archiveFileName = warArchiveFileName
+  def deployPath = "/" + warArchiveFileName.replace(".war", "")
+  def buildDir = layout.buildDirectory.get()
+  def warFile = file("$buildDir/libs/${archiveFileName}")
+  def port = 8081
+  def host = "127.0.0.1"
+  def user = "script"
+  def pass = "s3cret"
+  def url = "http://${host}:${port}/manager/text/deploy?path=${deployPath}&update=true"
+  def authentification = "${user}:${pass}"
+
+  commandLine 'curl', '-u', authentification, '-T', warFile, url
+}
