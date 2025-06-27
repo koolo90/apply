@@ -24,4 +24,8 @@ export class ListPlanetsComponent implements OnInit {
       this.planets = data;
     });
   }
+
+  delete(username: string | undefined) {
+    this.service.removeByUsername(username);
+  }
 }

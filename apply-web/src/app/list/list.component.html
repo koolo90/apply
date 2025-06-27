@@ -17,16 +17,18 @@
         <td>
           <ul class="text-center list-inline py-0 px-0">
             <li class="list-inline-item">
-              <a routerLink="/planet/{{planet.username}}" class="btn btn-info" routerLinkActive="active"
-                 ariaCurrentWhenActive="page">Details</a>
+              <a routerLink="/planet/{{planet.username}}" class="btn btn-info" routerLinkActive="active" ariaCurrentWhenActive="page">
+                <i class="bi bi-zoom-in"></i></a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/edit/{{planet.username}}" class="btn btn-info" routerLinkActive="active"
-                 ariaCurrentWhenActive="page">Edit</a>
+              <a routerLink="/edit/{{planet.username}}" class="btn btn-info" routerLinkActive="active" ariaCurrentWhenActive="page">
+                <i class="bi bi-pencil"></i></a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/remove/{{planet.username}}" class="btn btn-info" routerLinkActive="active"
-                 ariaCurrentWhenActive="page">Remove</a>
+              <a routerLink="/delete/{{planet.username}}" class="btn btn-info"
+                 (click)="delete(planet.username)"
+                 routerLinkActive="active" ariaCurrentWhenActive="page">
+                <i class="bi bi-trash"></i></a>
             </li>
           </ul>
         </td>
