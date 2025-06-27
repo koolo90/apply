@@ -1,7 +1,7 @@
 package com.brocode.apply.buissness.service;
 
-import com.brocode.apply.buissness.model.Candidate;
-import com.brocode.apply.repositories.CandidateRepository;
+import com.brocode.apply.buissness.model.CelestialBody;
+import com.brocode.apply.repositories.CelestialBodyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,20 +30,30 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class PlanetController {
-    private final CandidateRepository candidateRepository;
-
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Candidate> getAll() {
-        return candidateRepository.findAll();
-    }
+    private final CelestialBodyRepository celestialBodyRepository;
 
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> createNew(@RequestBody Candidate candidate) {
-        return ResponseEntity.of(Optional.of(candidateRepository.save(candidate)));
+    public ResponseEntity<CelestialBody> createNew(@RequestBody CelestialBody candidate) {
+        return ResponseEntity.of(Optional.of(celestialBodyRepository.save(candidate)));
     }
 
-    @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> getByName(@PathVariable String username) {
-        return ResponseEntity.of(candidateRepository.findByUsername(username));
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<CelestialBody> getAll() {
+        return celestialBodyRepository.findAll();
+    }
+
+    @GetMapping(value = "/details/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CelestialBody> getByName(@PathVariable String name) {
+        return ResponseEntity.of(celestialBodyRepository.findByName(name));
+    }
+
+    @PatchMapping(value = "/edit/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CelestialBody> updateByName(@PathVariable String name) {
+        return ResponseEntity.of(celestialBodyRepository.findByName(name));
+    }
+
+    @DeleteMapping(value = "/delete/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteByName(@PathVariable String name) {
+        celestialBodyRepository.deleteByName(name);
     }
 }

@@ -1,7 +1,7 @@
 package com.brocode.apply.buissness.service;
 
-import com.brocode.apply.buissness.model.Candidate;
-import com.brocode.apply.repositories.CandidateRepository;
+import com.brocode.apply.buissness.model.CelestialBody;
+import com.brocode.apply.repositories.CelestialBodyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,33 +29,33 @@ import java.util.Optional;
 @RequestMapping("/hello")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class HelloController {
-    private final CandidateRepository applierRepository;
+    private final CelestialBodyRepository applierRepository;
 
     @GetMapping(value = "/global", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> hello() {
-        return ResponseEntity.of(applierRepository.findByUsername("World"));
+    public ResponseEntity<CelestialBody> hello() {
+        return ResponseEntity.of(applierRepository.findByName("World"));
     }
 
     @GetMapping(value = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> targetedHello(@PathVariable("username") String username) {
-        return ResponseEntity.of(applierRepository.findByUsername(username));
+    public ResponseEntity<CelestialBody> targetedHello(@PathVariable("username") String username) {
+        return ResponseEntity.of(applierRepository.findByName(username));
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Candidate> helloAll() {
+    public Iterable<CelestialBody> helloAll() {
         return applierRepository.findAll();
     }
 
     @PostMapping(value = "/iam", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> introduce(@RequestBody Candidate candidate) {
+    public ResponseEntity<CelestialBody> introduce(@RequestBody CelestialBody candidate) {
         return ResponseEntity.of(Optional.of(applierRepository.save(candidate)));
     }
 
     @PutMapping(value = "/fix/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Candidate> update(@PathVariable("username") String username, @RequestBody Candidate candidate) {
-        return applierRepository.findByUsername(username).map(c -> {
-            c.setUsername(candidate.getUsername());
-            c.setEmail(candidate.getEmail());
+    public ResponseEntity<CelestialBody> update(@PathVariable("username") String username, @RequestBody CelestialBody celestialBody) {
+        return applierRepository.findByName(username).map(c -> {
+            c.setName(celestialBody.getName());
+            c.setWeight(celestialBody.getWeight());
             return ResponseEntity.of(Optional.of(applierRepository.save(c)));
         }).orElseGet(() ->  ResponseEntity.notFound().build());
     }

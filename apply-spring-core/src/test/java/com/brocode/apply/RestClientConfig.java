@@ -1,4 +1,4 @@
-package com.brocode.apply.test;
+package com.brocode.apply;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
