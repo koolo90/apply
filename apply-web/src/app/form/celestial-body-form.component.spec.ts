@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlanetFormComponent } from './planet-form.component';
+import { CelestialBodyFormComponent } from './celestial-body-form.component';
 
 describe('FormComponent', () => {
-  let component: PlanetFormComponent;
-  let fixture: ComponentFixture<PlanetFormComponent>;
+  let component: CelestialBodyFormComponent;
+  let fixture: ComponentFixture<CelestialBodyFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlanetFormComponent]
+      imports: [CelestialBodyFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PlanetFormComponent);
+    fixture = TestBed.createComponent(CelestialBodyFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

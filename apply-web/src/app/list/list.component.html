@@ -5,28 +5,30 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Email</th>
+        <th scope="col">Weight</th>
         <th scope="col" class="w-25">Actions</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let planet of planets">
-        <th scope="row" class="fw-bold">{{ planet.id }}</th>
-        <td class="fw-bolder">{{ planet.username }}</td>
-        <td class="fst-italic">{{ planet.email }}</td>
+      <tr *ngFor="let celestialBody of celestialBodies">
+        <th scope="row" class="fw-bold">{{ celestialBody.id }}</th>
+        <td class="fw-bolder">{{ celestialBody.name }}</td>
+        <td class="fst-italic">{{ celestialBody.weight }}</td>
         <td>
           <ul class="text-center list-inline py-0 px-0">
             <li class="list-inline-item">
-              <a routerLink="/planet/{{planet.username}}" class="btn btn-info" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <a routerLink="/details/{{celestialBody.name}}" class="btn btn-info" routerLinkActive="active"
+                 ariaCurrentWhenActive="page">
                 <i class="bi bi-zoom-in"></i></a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/edit/{{planet.username}}" class="btn btn-info" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <a routerLink="/edit/{{celestialBody.name}}" class="btn btn-info" routerLinkActive="active"
+                 ariaCurrentWhenActive="page">
                 <i class="bi bi-pencil"></i></a>
             </li>
             <li class="list-inline-item">
-              <a routerLink="/delete/{{planet.username}}" class="btn btn-info"
-                 (click)="delete(planet.username)"
+              <a routerLink="/delete/{{celestialBody.name}}" class="btn btn-info"
+                 (click)="delete(celestialBody.name)"
                  routerLinkActive="active" ariaCurrentWhenActive="page">
                 <i class="bi bi-trash"></i></a>
             </li>
@@ -35,5 +37,11 @@
       </tr>
       </tbody>
     </table>
+    <ul class="text-end list-inline">
+      <li class="list-inline-item">
+        <a routerLink="/new" class="btn btn-info" routerLinkActive="active" ariaCurrentWhenActive="page">
+          <i class="bi bi-plus"></i>New</a>
+      </li>
+    </ul>
   </div>
 </div>

@@ -34,7 +34,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/celestialBody")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = { "http://localhost:4200", "http://127.0.0.1:4200" })
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class CelestialBodyController {
@@ -101,28 +101,28 @@ public class CelestialBodyController {
 
     //Delete
     @DeleteMapping(value = "/delete/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pair<Long, Optional<CelestialBody>>> deleteByName(@PathVariable String name) {
+    public ResponseEntity<Pair<Long, CelestialBody>> deleteByName(@PathVariable String name) {
         log.info(deleteLogMessage, name);
         Optional<CelestialBody> formerStateOfCelestialBody = celestialBodyRepository.findByName(name);
         if (formerStateOfCelestialBody.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         Long deletedCount = celestialBodyRepository.deleteByName(name);
-        Pair<Long, Optional<CelestialBody>> deleteResponseHolder = Pair.of(deletedCount, formerStateOfCelestialBody);
+        Pair<Long, CelestialBody> deleteResponseHolder = Pair.of(deletedCount, formerStateOfCelestialBody.get());
         return ResponseEntity.ok(deleteResponseHolder);
     }
 
     @DeleteMapping(value = "/deleteAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pair<Integer, Iterable<CelestialBody>>> deleteAll() {
+    public ResponseEntity<Pair<Long, Iterable<CelestialBody>>> deleteAll() {
         log.info(deleteLogMessage);
         long countOfCelestialBodies = celestialBodyRepository.count();
         if (countOfCelestialBodies <= 0) {
             return ResponseEntity.notFound().build();
         }
         Iterable<CelestialBody> formerStateOfCelestialBody = celestialBodyRepository.findAll();
-        int size = IterableUtils.size(formerStateOfCelestialBody);
+        long size = IterableUtils.size(formerStateOfCelestialBody);
         celestialBodyRepository.deleteAll();
-        Pair<Integer, Iterable<CelestialBody>> deleteResponseHolder = Pair.of(size, formerStateOfCelestialBody);
+        Pair<Long, Iterable<CelestialBody>> deleteResponseHolder = Pair.of(size, formerStateOfCelestialBody);
         return ResponseEntity.ok(deleteResponseHolder);
     }
 }

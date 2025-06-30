@@ -1,12 +1,12 @@
-import { Routes } from '@angular/router';
-import {PlanetComponent} from './planet/planet.component';
-import {ListPlanetsComponent} from './list/list.component';
-import {PlanetFormComponent} from './form/planet-form.component';
+import {Routes} from '@angular/router';
+import {ListCelestialBodiesComponent} from './list/list.component';
+import {CelestialBodyFormComponent} from './form/celestial-body-form.component';
+import {CelestialBodyComponent} from './celestialBody/celestial-body.component';
 
 export const routes: Routes = [
-  { path: 'list', component: ListPlanetsComponent },
-  { path: 'new', component: PlanetFormComponent },
-  { path: 'planet/:username', component: PlanetComponent },
-  { path: 'edit/:username', component: PlanetFormComponent },
-  { path: 'delete/:username', component: ListPlanetsComponent }
+  {path: 'new', component: CelestialBodyFormComponent},
+  {path: 'list', component: ListCelestialBodiesComponent},
+  {path: 'details/:name', component: CelestialBodyComponent},
+  {path: 'edit/:name', component: CelestialBodyFormComponent},
+  {path: 'delete/:name', component: ListCelestialBodiesComponent },
 ];

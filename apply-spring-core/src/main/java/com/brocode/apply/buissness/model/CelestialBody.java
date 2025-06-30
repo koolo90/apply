@@ -11,5 +11,5 @@ public class CelestialBody {
     @SequenceGenerator(name="celestial_body_seq", sequenceName="celestial_body_id_seq", initialValue = 7537000, allocationSize=1)
     @Column Long id;
     @NonNull @Column(unique = true) String name; // https://www.baeldung.com/jpa-unique-constraints
-    @NonNull @Column(unique = true) String weight; // https://www.baeldung.com/jpa-unique-constraints
+    @NonNull String weight; // https://www.baeldung.com/jpa-unique-constraints
 }

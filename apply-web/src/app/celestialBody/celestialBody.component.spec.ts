@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlanetComponent } from './planet.component';
+import { CelestialBodyComponent } from './celestial-body.component';
 
 describe('PlanetComponent', () => {
-  let component: PlanetComponent;
-  let fixture: ComponentFixture<PlanetComponent>;
+  let component: CelestialBodyComponent;
+  let fixture: ComponentFixture<CelestialBodyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlanetComponent]
+      imports: [CelestialBodyComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PlanetComponent);
+    fixture = TestBed.createComponent(CelestialBodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
