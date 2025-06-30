@@ -4,12 +4,17 @@ import com.brocode.apply.buissness.model.CelestialBody;
 import com.brocode.apply.repositories.CelestialBodyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -46,6 +51,13 @@ public class CelestialBodyController {
     @PostMapping(value = "/new", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CelestialBody> createNew(@RequestBody CelestialBody celestialBody) {
         log.info(createLogMessage, celestialBody);
+
+        try {
+            celestialBodyRepository.save(celestialBody);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(celestialBody);
+        }
+
         CelestialBody savedCelestialBody = celestialBodyRepository.save(celestialBody);
         Optional<CelestialBody> optionalSavedCelestialBody = Optional.of(savedCelestialBody);
         return ResponseEntity.of(optionalSavedCelestialBody);
@@ -72,9 +84,17 @@ public class CelestialBodyController {
         log.info(fetchLogMessage, name);
         Optional<CelestialBody> formerStateOfCelestialBody = celestialBodyRepository.findByName(name);
 
+        CelestialBody first;
+        if (formerStateOfCelestialBody.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            first = formerStateOfCelestialBody.get();
+        }
+
         log.info(updateLogMessage, celestialBody);
         CelestialBody savedCelestialBody = celestialBodyRepository.save(celestialBody);
-        Pair<CelestialBody, CelestialBody> updateResponseHolder = Pair.of(formerStateOfCelestialBody.get(), savedCelestialBody);
+
+        Pair<CelestialBody, CelestialBody> updateResponseHolder = Pair.of(first, savedCelestialBody);
 
         return ResponseEntity.ok(updateResponseHolder);
     }
@@ -84,8 +104,25 @@ public class CelestialBodyController {
     public ResponseEntity<Pair<Long, Optional<CelestialBody>>> deleteByName(@PathVariable String name) {
         log.info(deleteLogMessage, name);
         Optional<CelestialBody> formerStateOfCelestialBody = celestialBodyRepository.findByName(name);
+        if (formerStateOfCelestialBody.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         Long deletedCount = celestialBodyRepository.deleteByName(name);
         Pair<Long, Optional<CelestialBody>> deleteResponseHolder = Pair.of(deletedCount, formerStateOfCelestialBody);
+        return ResponseEntity.ok(deleteResponseHolder);
+    }
+
+    @DeleteMapping(value = "/deleteAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pair<Integer, Iterable<CelestialBody>>> deleteAll() {
+        log.info(deleteLogMessage);
+        long countOfCelestialBodies = celestialBodyRepository.count();
+        if (countOfCelestialBodies <= 0) {
+            return ResponseEntity.notFound().build();
+        }
+        Iterable<CelestialBody> formerStateOfCelestialBody = celestialBodyRepository.findAll();
+        int size = IterableUtils.size(formerStateOfCelestialBody);
+        celestialBodyRepository.deleteAll();
+        Pair<Integer, Iterable<CelestialBody>> deleteResponseHolder = Pair.of(size, formerStateOfCelestialBody);
         return ResponseEntity.ok(deleteResponseHolder);
     }
 }
