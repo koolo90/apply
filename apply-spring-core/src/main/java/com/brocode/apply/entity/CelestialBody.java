@@ -1,9 +1,9 @@
-package com.brocode.apply.buissness.model;
+package com.brocode.apply.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor @NoArgsConstructor @RequiredArgsConstructor @Getter @Setter @ToString //Project Lombok
+@Data @AllArgsConstructor @NoArgsConstructor @RequiredArgsConstructor //Project Lombok
 @Entity @Table(schema = "apply") // Spring JPA
 public class CelestialBody {
     @Id

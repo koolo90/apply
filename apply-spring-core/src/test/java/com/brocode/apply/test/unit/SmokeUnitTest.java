@@ -1,8 +1,7 @@
 package com.brocode.apply.test.unit;
 
 import com.brocode.apply.ApplyApplication;
-import com.brocode.apply.buissness.service.CelestialBodyController;
-import com.brocode.apply.repositories.CelestialBodyRepository;
+import com.brocode.apply.repository.CelestialBodyRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class SmokeUnitTest {
     @Autowired CelestialBodyRepository repository;
-    @Autowired CelestialBodyController controller;
 
     @Test
     void contextLoads() {

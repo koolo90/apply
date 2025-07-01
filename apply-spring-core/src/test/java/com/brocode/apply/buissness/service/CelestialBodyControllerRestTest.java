@@ -1,7 +1,8 @@
 package com.brocode.apply.buissness.service;
 
-import com.brocode.apply.buissness.model.CelestialBody;
-import com.brocode.apply.repositories.CelestialBodyRepository;
+import com.brocode.apply.entity.CelestialBody;
+import com.brocode.apply.repository.CelestialBodyRepository;
+import com.brocode.apply.controller.CelestialBodyController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

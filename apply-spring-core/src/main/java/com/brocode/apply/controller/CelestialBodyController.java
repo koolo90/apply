@@ -1,11 +1,10 @@
-package com.brocode.apply.buissness.service;
+package com.brocode.apply.controller;
 
-import com.brocode.apply.buissness.model.CelestialBody;
-import com.brocode.apply.repositories.CelestialBodyRepository;
+import com.brocode.apply.entity.CelestialBody;
+import com.brocode.apply.repository.CelestialBodyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IterableUtils;
-import org.apache.commons.collections4.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.util.Pair;
@@ -14,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Optional;
 
 /**

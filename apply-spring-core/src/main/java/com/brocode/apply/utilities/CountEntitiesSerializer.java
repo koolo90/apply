@@ -1,4 +1,4 @@
-package com.brocode.apply.buissness.utilities;
+package com.brocode.apply.utilities;
 
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -8,6 +8,7 @@ import org.springframework.data.util.Pair;
 
 import java.io.IOException;
 
+@SuppressWarnings("squid:S3740")
 public class CountEntitiesSerializer extends JsonSerializer<Pair> {
     /**
      * Method that can be called to ask implementation to serialize

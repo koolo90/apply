@@ -1,8 +1,8 @@
 plugins {
-  id "java"
-  id "war"
-  id("org.springframework.boot") version "3.5.0"
-  id("io.spring.dependency-management") version "1.1.7"
+    id "java"
+    id "war"
+    id("org.springframework.boot") version "3.5.0"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 apply plugin: 'war'
@@ -11,78 +11,62 @@ group = "com.brocode"
 version = "0.0.1-SNAPSHOT"
 
 java {
-  toolchain {
-    languageVersion = JavaLanguageVersion.of(21)
-  }
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-  compileOnly {
-    extendsFrom(configurations.annotationProcessor)
-  }
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor)
+    }
 }
 
 test {
-  useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 dependencies {
-  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
 
-  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  implementation "org.springframework.boot:spring-boot-starter-web"
-  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8' //https://www.baeldung.com/spring-rest-openapi-documentation
-  implementation 'org.apache.commons:commons-collections4:4.5.0' // due to: https://commons.apache.org/proper/commons-collections/apidocs/org/apache/commons/collections4/IterableUtils.html
-  compileOnly "org.projectlombok:lombok"
-  annotationProcessor "org.projectlombok:lombok"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8'
+    implementation 'org.apache.commons:commons-collections4:4.5.0'
+    compileOnly "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok"
 
-  runtimeOnly("org.postgresql:postgresql")
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
-  testImplementation("org.assertj:assertj-core:4.0.0-M1")
-  testImplementation("com.h2database:h2:2.3.232")
-  testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-  //basing on: https://www.baeldung.com/cucumber-spring-integration
-  implementation 'io.cucumber:cucumber-jvm:7.23.0'   // https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm
-  implementation 'io.cucumber:cucumber-java:7.23.0'   // https://mvnrepository.com/artifact/io.cucumber/cucumber-jvm
-  testImplementation 'io.cucumber:cucumber-junit:7.23.0' // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
-  implementation 'io.cucumber:cucumber-spring:7.23.0' // https://mvnrepository.com/artifact/io.cucumber/cucumber-spring
-  testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.23.0' // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit-platform-engine
+    runtimeOnly "org.postgresql:postgresql"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.assertj:assertj-core:4.0.0-M1"
+    testImplementation "com.h2database:h2:2.3.232"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 
-  implementation 'org.junit.platform:junit-platform-suite:1.13.1'
-
-  //implementation("org.springframework.boot:spring-boot-starter-security")
-
-  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5' // https://www.baeldung.com/spring-rest-openapi-documentation
-  //implementation("org.springframework.kafka:spring-kafka")
-
-  //implementation("org.flywaydb:flyway-core")
-  //implementation("org.flywaydb:flyway-database-postgresql")
-
-  //testImplementation("org.springframework.kafka:spring-kafka-test")
-  //testImplementation("org.springframework.security:spring-security-test")
+    implementation 'org.junit.platform:junit-platform-suite:1.13.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 war {
-  archiveFileName = "apply-spring.war"
+    archiveFileName = "apply-spring.war"
 }
 
 tasks.register('redeploy', Exec) {
-  group = 'deployment'
-  dependsOn war
+    group = 'deployment'
+    dependsOn war
 
-  def warTaskByName = tasks.war
-  def archiveFileName = warTaskByName.archiveFileName.get()
-  def deployPath = "/" + warTaskByName.archiveFileName.get().replace(".war", "")
-  def buildDir = layout.buildDirectory.get()
-  def warFile = file("$buildDir/libs/${archiveFileName}")
-  def port = 8080
-  def host = "127.0.0.1"
-  def user = "script"
-  def pass = "s3cret"
-  def url = "http://${host}:${port}/manager/text/deploy?path=${deployPath}&update=true"
-  def authentification = "${user}:${pass}"
+    def warTaskByName = tasks.war
+    def archiveFileName = warTaskByName.archiveFileName.get()
+    def deployPath = "/" + warTaskByName.archiveFileName.get().replace(".war", "")
+    def buildDir = layout.buildDirectory.get()
+    def warFile = file("$buildDir/libs/${archiveFileName}")
+    def port = 8080
+    def host = "127.0.0.1"
+    def user = "script"
+    def pass = "s3cret"
+    def url = "http://${host}:${port}/manager/text/deploy?path=${deployPath}&update=true"
+    def authentification = "${user}:${pass}"
 
-  println "Execution of command: curl -u ${authentification} -T ${warFile} ${url}"
+    println "Execution of command: curl -u ${authentification} -T ${warFile} ${url}"
 
-  commandLine 'curl', '-u', authentification, '-T', warFile, url
+    commandLine 'curl', '-u', authentification, '-T', warFile, url
 }
