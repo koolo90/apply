@@ -4,19 +4,22 @@ import com.brocode.apply.entity.User;
 import com.brocode.apply.service.ApplyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:4200")
+import java.util.Optional;
+
+@CrossOrigin(origins = { "http://localhost:4200/", "http://127.0.0.1:4200/" })
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     private final ApplyUserDetailsService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public  AuthController(ApplyUserDetailsService userService) {
+    public  AuthController(ApplyUserDetailsService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/register")
@@ -27,10 +30,12 @@ public class AuthController {
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<User> login() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return userService.findByUsername(username).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
+    @RequestMapping("/login")
+    public boolean login(@RequestBody User user) {
+        Optional<User> user1 = userService.findByUsername(user.getUsername());
+        if (user1.isEmpty()) return false;
+        String password = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        return user1.get().getPassword().equals(encodedPassword);
     }
 }

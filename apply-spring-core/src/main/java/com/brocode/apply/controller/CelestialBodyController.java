@@ -32,7 +32,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/celestialBody")
-@CrossOrigin(origins = { "http://localhost:4200", "http://127.0.0.1:4200" })
+@CrossOrigin(origins = { "http://localhost:4200/", "http://127.0.0.1:4200/" })
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class CelestialBodyController {
