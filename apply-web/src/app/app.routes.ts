@@ -10,6 +10,7 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'new', component: CelestialBodyFormComponent},
   {path: 'list', component: ListCelestialBodiesComponent},
+  {path: 'home', component: ListCelestialBodiesComponent},
   {path: 'details/:name', component: CelestialBodyComponent},
   {path: 'edit/:name', component: CelestialBodyFormComponent},
   {path: 'delete/:name', component: ListCelestialBodiesComponent },

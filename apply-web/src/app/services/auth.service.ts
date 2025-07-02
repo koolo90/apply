@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {Credentials} from '../model/credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,17 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/register`, user);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
+  login(credentials: Credentials): void {
+    let headers = new HttpHeaders();
+    /*
+    credentials ? {
+      authorization : 'Basic' + btoa(credentials.username + ":" + credentials.password),
+    } : {}
+     */
+    headers.set('authorization', 'Basic ' + btoa(credentials.username + ":" + credentials.password));
+
+    this.http.get(`${this.baseUrl}/login`, {headers: headers}).subscribe(response => {
+      console.log(response);
+    });
   }
 }
