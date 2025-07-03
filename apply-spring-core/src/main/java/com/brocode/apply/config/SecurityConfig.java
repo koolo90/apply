@@ -4,6 +4,7 @@ import com.brocode.apply.service.ApplyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,9 +27,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(
-            auth -> auth.anyRequest().permitAll() //no authorisation
-        ).build();
+        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(
+            auth -> auth.requestMatchers("/auth/**").permitAll() //no authorisation
+                    .anyRequest().authenticated()
+        ).formLogin(Customizer.withDefaults());
+
+        return http.build();
     }
 
     @Autowired

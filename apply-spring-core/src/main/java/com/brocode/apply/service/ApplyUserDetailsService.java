@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static org.springframework.security.core.userdetails.User.*;
+
 @Service
 public class ApplyUserDetailsService implements UserDetailsService {
-    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder encoder;
+
     @Autowired
     public ApplyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -32,14 +35,12 @@ public class ApplyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> byUsername = userRepository.findByUsername(username);
-        if(byUsername.isPresent()){
-            return org.springframework.security.core.userdetails.
-                    User.withUsername(byUsername.get().getUsername())
-                    .password(byUsername.get().getPassword())
-                    .authorities(byUsername.get().getRoles().split(","))
-                    .build();
-        }
-        throw new UsernameNotFoundException(username);
+        return userRepository.findByUsername(username).map(u ->
+                withUsername(u.getUsername())
+                .password(u.getPassword())
+                .authorities(u.getRoles().split(","))
+                        .build()
+        ).orElseThrow(
+                () -> new UsernameNotFoundException("User not found"));
     }
 }

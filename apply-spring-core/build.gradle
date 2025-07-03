@@ -22,10 +22,6 @@ configurations {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
-
 dependencies {
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
 
@@ -44,6 +40,10 @@ dependencies {
 
     implementation 'org.junit.platform:junit-platform-suite:1.13.1'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 war {

@@ -10,8 +10,8 @@ import lombok.NonNull;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="celestial_body_seq")
-    @SequenceGenerator(name="celestial_body_seq", sequenceName="celestial_body_id_seq", initialValue = 7537000, allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="user_seq")
+    @SequenceGenerator(name="user_seq", sequenceName="user_id_seq", initialValue = 73570000, allocationSize=1)
     @Column Long id;
     @NonNull @Column(unique = true) private String username;
     @NonNull private String password;
